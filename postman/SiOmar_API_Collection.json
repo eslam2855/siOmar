@@ -1,0 +1,1803 @@
+{
+	"info": {
+		"_postman_id": "siomar-api-collection",
+		"name": "SiOmar API Collection",
+		"description": "Complete API collection for SiOmar reservation management system with filtering capabilities, push notifications, and in-app notifications",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "siomar-api"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"phone_number\": \"+1234567890\",\n    \"password\": \"Password123!\",\n    \"password_confirmation\": \"Password123!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "register"]
+						}
+					}
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\",\n    \"password\": \"Password123!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "login"]
+						}
+					}
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/forgot-password",
+							"host": ["{{base_url}}"],
+							"path": ["api", "forgot-password"]
+						}
+					}
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\",\n    \"token\": \"reset-token-here\",\n    \"password\": \"NewPassword123!\",\n    \"password_confirmation\": \"NewPassword123!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reset-password",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reset-password"]
+						}
+					}
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/logout",
+							"host": ["{{base_url}}"],
+							"path": ["api", "logout"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "User Profile",
+			"item": [
+				{
+					"name": "Get Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/profile",
+							"host": ["{{base_url}}"],
+							"path": ["api", "profile"]
+						}
+					}
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Updated Doe\",\n    \"phone_number\": \"+1234567891\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profile",
+							"host": ["{{base_url}}"],
+							"path": ["api", "profile"]
+						}
+					}
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"current_password\": \"Password123!\",\n    \"password\": \"NewPassword123!\",\n    \"password_confirmation\": \"NewPassword123!\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/change-password",
+							"host": ["{{base_url}}"],
+							"path": ["api", "change-password"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Units",
+			"item": [
+				{
+					"name": "Get All Units",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/units",
+							"host": ["{{base_url}}"],
+							"path": ["api", "units"]
+						}
+					}
+				},
+				{
+					"name": "Search Units",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/search/units?q=villa&min_price=100&max_price=500&min_guests=2&sort_by=daily_price&sort_order=asc",
+							"host": ["{{base_url}}"],
+							"path": ["api", "search", "units"],
+							"query": [
+								{
+									"key": "q",
+									"value": "villa"
+								},
+								{
+									"key": "min_price",
+									"value": "100"
+								},
+								{
+									"key": "max_price",
+									"value": "500"
+								},
+								{
+									"key": "min_guests",
+									"value": "2"
+								},
+								{
+									"key": "sort_by",
+									"value": "daily_price"
+								},
+								{
+									"key": "sort_order",
+									"value": "asc"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Unit Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/units/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "units", "1"]
+						}
+					}
+				},
+				{
+					"name": "Calculate Unit Pricing",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"check_in_date\": \"2024-12-15\",\n    \"check_out_date\": \"2024-12-20\",\n    \"number_of_guests\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/units/1/calculate-pricing",
+							"host": ["{{base_url}}"],
+							"path": ["api", "units", "1", "calculate-pricing"]
+						}
+					}
+				},
+				{
+					"name": "Check Unit Availability",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/units/1/availability?check_in_date=2024-12-15&check_out_date=2024-12-20&number_of_guests=2",
+							"host": ["{{base_url}}"],
+							"path": ["api", "units", "1", "availability"],
+							"query": [
+								{
+									"key": "check_in_date",
+									"value": "2024-12-15"
+								},
+								{
+									"key": "check_out_date",
+									"value": "2024-12-20"
+								},
+								{
+									"key": "number_of_guests",
+									"value": "2"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Unit Reserved Days",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/units/1/reserved-days",
+							"host": ["{{base_url}}"],
+							"path": ["api", "units", "1", "reserved-days"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Reservations",
+			"item": [
+				{
+					"name": "Get All Reservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations"]
+						}
+					}
+				},
+				{
+					"name": "Get Upcoming Reservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations?filter=upcoming",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "upcoming"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Current Reservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations?filter=current",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "current"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Finished Reservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations?filter=finished",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations"],
+							"query": [
+								{
+									"key": "filter",
+									"value": "finished"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Reservations by Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations?status=confirmed",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations"],
+							"query": [
+								{
+									"key": "status",
+									"value": "confirmed"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Reservations by Date Range",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations?date_from=2024-01-01&date_to=2024-12-31",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations"],
+							"query": [
+								{
+									"key": "date_from",
+									"value": "2024-01-01"
+								},
+								{
+									"key": "date_to",
+									"value": "2024-12-31"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Search Reservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations?search=RES-2024",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations"],
+							"query": [
+								{
+									"key": "search",
+									"value": "RES-2024"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Reservations with Sorting",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations?sort_by=check_in_date&sort_order=asc&per_page=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations"],
+							"query": [
+								{
+									"key": "sort_by",
+									"value": "check_in_date"
+								},
+								{
+									"key": "sort_order",
+									"value": "asc"
+								},
+								{
+									"key": "per_page",
+									"value": "20"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Reservation Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations/statistics",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "statistics"]
+						}
+					}
+				},
+				{
+					"name": "Create Reservation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"unit_id\": 1,\n    \"check_in_date\": \"2024-12-15\",\n    \"check_out_date\": \"2024-12-20\",\n    \"number_of_guests\": 2,\n    \"guest_name\": \"John Doe\",\n    \"guest_phone\": \"+1234567890\",\n    \"guest_email\": \"john@example.com\",\n    \"special_requests\": \"Early check-in preferred\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations"]
+						}
+					}
+				},
+				{
+					"name": "Get Reservation Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1"]
+						}
+					}
+				},
+				{
+					"name": "Update Reservation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"number_of_guests\": 3,\n    \"special_requests\": \"Updated special requests\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1"]
+						}
+					}
+				},
+				{
+					"name": "Cancel Reservation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"Change of plans\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/cancel",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "cancel"]
+						}
+					}
+				},
+				{
+					"name": "Upload Transfer Image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "transfer_image",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "transfer_amount",
+									"value": "500.00",
+									"type": "text"
+								},
+								{
+									"key": "transfer_date",
+									"value": "2024-12-01",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/upload-transfer",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "upload-transfer"]
+						}
+					}
+				},
+				{
+					"name": "Delete Reservation",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Cancellation Policies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cancellation-policies",
+							"host": ["{{base_url}}"],
+							"path": ["api", "cancellation-policies"]
+						}
+					}
+				},
+				{
+					"name": "Calculate Bulk Pricing",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"unit_id\": 1,\n    \"check_in_date\": \"2024-12-15\",\n    \"check_out_date\": \"2024-12-20\",\n    \"number_of_guests\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/bulk-pricing",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "bulk-pricing"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin Operations",
+			"item": [
+				{
+					"name": "Update Reservation Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"confirmed\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/status",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "status"]
+						}
+					}
+				},
+				{
+					"name": "Update Admin Notes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"admin_notes\": \"Guest requested early check-in\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/admin-notes",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "admin-notes"]
+						}
+					}
+				},
+				{
+					"name": "Verify Deposit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/verify-deposit",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "verify-deposit"]
+						}
+					}
+				},
+				{
+					"name": "Update Transfer Details",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transfer_amount\": 500.00,\n    \"transfer_date\": \"2024-12-01\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/transfer-details",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "transfer-details"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Bulk Operations",
+			"item": [
+				{
+					"name": "Bulk Update Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reservation_ids\": [1, 2, 3],\n    \"status\": \"confirmed\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bulk/update-status",
+							"host": ["{{base_url}}"],
+							"path": ["api", "bulk", "update-status"]
+						}
+					}
+				},
+				{
+					"name": "Bulk Verify Deposits",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reservation_ids\": [1, 2, 3]\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bulk/verify-deposits",
+							"host": ["{{base_url}}"],
+							"path": ["api", "bulk", "verify-deposits"]
+						}
+					}
+				},
+				{
+					"name": "Bulk Cancel Reservations",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reservation_ids\": [1, 2, 3],\n    \"reason\": \"System maintenance\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bulk/cancel-reservations",
+							"host": ["{{base_url}}"],
+							"path": ["api", "bulk", "cancel-reservations"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Analytics",
+			"item": [
+				{
+					"name": "Dashboard Analytics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/dashboard",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "dashboard"]
+						}
+					}
+				},
+				{
+					"name": "Revenue Analytics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/revenue",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "revenue"]
+						}
+					}
+				},
+				{
+					"name": "Reservation Analytics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/reservations",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "reservations"]
+						}
+					}
+				},
+				{
+					"name": "Unit Analytics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/units",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "units"]
+						}
+					}
+				},
+				{
+					"name": "Recent Activities",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/activities",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "activities"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Get All Settings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/settings",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings"]
+						}
+					}
+				},
+				{
+					"name": "Get Settings by Group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/settings?group=reservation",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings"],
+							"query": [
+								{
+									"key": "group",
+									"value": "reservation"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Reservation Settings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/settings/reservation",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings", "reservation"]
+						}
+					}
+				},
+				{
+					"name": "Get System Settings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/settings/system",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings", "system"]
+						}
+					}
+				},
+				{
+					"name": "Get Specific Setting",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/settings/minimum_reservation_days",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings", "minimum_reservation_days"]
+						}
+					}
+				},
+				{
+					"name": "Update Setting (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"value\": 3\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/settings/minimum_reservation_days",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings", "minimum_reservation_days"]
+						}
+					}
+				},
+				{
+					"name": "Get Legal Settings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/settings/legal",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings", "legal"]
+						}
+					}
+				},
+				{
+					"name": "Get Privacy Policy",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/privacy-policy",
+							"host": ["{{base_url}}"],
+							"path": ["api", "privacy-policy"]
+						}
+					}
+				},
+				{
+					"name": "Get Terms of Service",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/terms-of-service",
+							"host": ["{{base_url}}"],
+							"path": ["api", "terms-of-service"]
+						}
+					}
+				},
+				{
+					"name": "Update Privacy Policy (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"This is the updated privacy policy content. We collect and use your personal information in accordance with applicable laws and regulations. Your privacy is important to us and we are committed to protecting your personal data.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/privacy-policy",
+							"host": ["{{base_url}}"],
+							"path": ["api", "privacy-policy"]
+						}
+					}
+				},
+				{
+					"name": "Update Terms of Service (Admin)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"content\": \"These are the updated terms of service. By using our services, you agree to be bound by these terms and conditions. Please read them carefully before making any reservations.\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/terms-of-service",
+							"host": ["{{base_url}}"],
+							"path": ["api", "terms-of-service"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Sliders",
+			"item": [
+				{
+					"name": "Get All Sliders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/sliders",
+							"host": ["{{base_url}}"],
+							"path": ["api", "sliders"]
+						}
+					}
+				},
+				{
+					"name": "Get Slider Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/sliders/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "sliders", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Get User Notifications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications"]
+						}
+					}
+				},
+				{
+					"name": "Get User Notifications (Unread Only)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications?unread_only=true",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications"],
+							"query": [
+								{
+									"key": "unread_only",
+									"value": "true"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get User Notifications (Paginated)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications?per_page=10",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications"],
+							"query": [
+								{
+									"key": "per_page",
+									"value": "10"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Notification Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "1"]
+						}
+					}
+				},
+				{
+					"name": "Mark Notification as Read",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/1/read",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "1", "read"]
+						}
+					}
+				},
+				{
+					"name": "Mark All Notifications as Read",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/read-all",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "read-all"]
+						}
+					}
+				},
+				{
+					"name": "Get Unread Notifications Count",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/unread/count",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "unread", "count"]
+						}
+					}
+				},
+				{
+					"name": "Register Push Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"fcm_device_token_here\",\n    \"platform\": \"android\",\n    \"device_id\": \"unique_device_id_123\",\n    \"app_version\": \"1.0.0\",\n    \"device_info\": {\n        \"model\": \"Samsung Galaxy S21\",\n        \"os_version\": \"Android 12\",\n        \"manufacturer\": \"Samsung\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/push-tokens/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "push-tokens", "register"]
+						}
+					}
+				},
+				{
+					"name": "Register iOS Push Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"ios_device_token_here\",\n    \"platform\": \"ios\",\n    \"device_id\": \"unique_ios_device_id_456\",\n    \"app_version\": \"1.0.0\",\n    \"device_info\": {\n        \"model\": \"iPhone 13 Pro\",\n        \"os_version\": \"iOS 15.0\",\n        \"manufacturer\": \"Apple\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/push-tokens/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "push-tokens", "register"]
+						}
+					}
+				},
+				{
+					"name": "Register Web Push Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"web_push_token_here\",\n    \"platform\": \"web\",\n    \"device_id\": \"unique_web_device_id_789\",\n    \"app_version\": \"1.0.0\",\n    \"device_info\": {\n        \"browser\": \"Chrome\",\n        \"browser_version\": \"96.0.4664.110\",\n        \"os\": \"Windows 10\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/push-tokens/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "push-tokens", "register"]
+						}
+					}
+				},
+				{
+					"name": "Unregister Push Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"fcm_device_token_here\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/push-tokens/unregister",
+							"host": ["{{base_url}}"],
+							"path": ["api", "push-tokens", "unregister"]
+						}
+					}
+				},
+				{
+					"name": "Get User Push Tokens",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/push-tokens",
+							"host": ["{{base_url}}"],
+							"path": ["api", "push-tokens"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin Notifications",
+			"item": [
+				{
+					"name": "Create System Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"system\",\n    \"title\": \"System Maintenance Notice\",\n    \"message\": \"The system will undergo maintenance on December 15th from 2:00 AM to 4:00 AM. During this time, some features may be temporarily unavailable.\",\n    \"priority\": \"high\",\n    \"category\": \"system\",\n    \"is_global\": true,\n    \"expires_at\": \"2024-12-15 23:59:59\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "create"]
+						}
+					}
+				},
+				{
+					"name": "Create Reservation Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"reservation\",\n    \"title\": \"Reservation Policy Update\",\n    \"message\": \"We have updated our reservation policies. Please review the new terms and conditions.\",\n    \"priority\": \"normal\",\n    \"category\": \"reservation\",\n    \"is_global\": true,\n    \"data\": {\n        \"policy_version\": \"2.1\",\n        \"effective_date\": \"2024-12-01\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "create"]
+						}
+					}
+				},
+				{
+					"name": "Create Payment Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"payment\",\n    \"title\": \"Payment Method Update\",\n    \"message\": \"We have added new payment methods including Apple Pay and Google Pay for your convenience.\",\n    \"priority\": \"normal\",\n    \"category\": \"payment\",\n    \"is_global\": true,\n    \"data\": {\n        \"new_methods\": [\"apple_pay\", \"google_pay\"],\n        \"launch_date\": \"2024-12-01\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "create"]
+						}
+					}
+				},
+				{
+					"name": "Create Legal Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"legal\",\n    \"title\": \"Privacy Policy Update\",\n    \"message\": \"We have updated our privacy policy to better protect your personal information. Please review the changes.\",\n    \"priority\": \"high\",\n    \"category\": \"legal\",\n    \"is_global\": true,\n    \"data\": {\n        \"policy_type\": \"privacy_policy\",\n        \"version\": \"3.0\",\n        \"effective_date\": \"2024-12-01\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "create"]
+						}
+					}
+				},
+				{
+					"name": "Create Scheduled Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"system\",\n    \"title\": \"Holiday Greetings\",\n    \"message\": \"Happy Holidays! We wish you a wonderful holiday season and look forward to serving you in the new year.\",\n    \"priority\": \"normal\",\n    \"category\": \"system\",\n    \"is_global\": true,\n    \"scheduled_at\": \"2024-12-25 09:00:00\",\n    \"expires_at\": \"2024-12-31 23:59:59\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "create"]
+						}
+					}
+				},
+				{
+					"name": "Create User-Specific Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"reservation\",\n    \"title\": \"Special Offer for You\",\n    \"message\": \"As a valued customer, we're offering you a 20% discount on your next reservation. Use code VIP20 at checkout.\",\n    \"priority\": \"high\",\n    \"category\": \"reservation\",\n    \"is_global\": false,\n    \"target_users\": [1, 2, 3],\n    \"data\": {\n        \"discount_code\": \"VIP20\",\n        \"discount_percentage\": 20,\n        \"expires_at\": \"2024-12-31\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "create"]
+						}
+					}
+				},
+				{
+					"name": "Create Role-Based Notification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"system\",\n    \"title\": \"Admin System Update\",\n    \"message\": \"New admin features have been added to the system. Please review the updated admin documentation.\",\n    \"priority\": \"normal\",\n    \"category\": \"system\",\n    \"is_global\": false,\n    \"target_roles\": [\"admin\"],\n    \"data\": {\n        \"feature_version\": \"2.5\",\n        \"documentation_url\": \"/admin/docs\"\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/notifications/create",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "create"]
+						}
+					}
+				},
+				{
+					"name": "Get Notification Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/statistics",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "statistics"]
+						}
+					}
+				},
+				{
+					"name": "Process Scheduled Notifications",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/notifications/process-scheduled",
+							"host": ["{{base_url}}"],
+							"path": ["api", "notifications", "process-scheduled"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"item": [
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/health",
+							"host": ["{{base_url}}"],
+							"path": ["api", "health"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": "your-auth-token-here",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,1143 @@
+{
+	"info": {
+		"_postman_id": "siomar-mobile-api",
+		"name": "SiOmar Mobile API",
+		"description": "Complete API collection for SiOmar mobile application - Enhanced reservation system with nullable number_of_guests, transfer fields, cancellation policies, bulk pricing, and comprehensive lifecycle management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12345678"
+	},
+	"item": [
+		{
+			"name": "🔐 Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"john@example.com\",\n    \"phone\": \"+1234567890\",\n    \"password\": \"password123\",\n    \"password_confirmation\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/register",
+							"host": ["{{base_url}}"],
+							"path": ["api", "register"]
+						},
+						"description": "Register a new user account"
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\",\n    \"password\": \"password123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "login"]
+						},
+						"description": "Login user and get authentication token"
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"john@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/forgot-password",
+							"host": ["{{base_url}}"],
+							"path": ["api", "forgot-password"]
+						},
+						"description": "Send password reset token to user's email"
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"token\": \"reset-token\",\n    \"email\": \"john@example.com\",\n    \"password\": \"newpassword123\",\n    \"password_confirmation\": \"newpassword123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reset-password",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reset-password"]
+						},
+						"description": "Reset password using token from email"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/logout",
+							"host": ["{{base_url}}"],
+							"path": ["api", "logout"]
+						},
+						"description": "Logout user and invalidate token"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "👤 User Profile",
+			"item": [
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/profile",
+							"host": ["{{base_url}}"],
+							"path": ["api", "profile"]
+						},
+						"description": "Get current user profile information"
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe Updated\",\n    \"phone\": \"+1234567890\",\n    \"profile_image\": \"base64_encoded_image_or_file\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/profile",
+							"host": ["{{base_url}}"],
+							"path": ["api", "profile"]
+						},
+						"description": "Update user profile information"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🏠 Units",
+			"item": [
+				{
+					"name": "Get All Units",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/units?search=luxury&type=1&min_price=100&max_price=500&amenities=1,2&page=1&per_page=15",
+							"host": ["{{base_url}}"],
+							"path": ["api", "units"],
+							"query": [
+								{
+									"key": "search",
+									"value": "luxury",
+									"description": "Search by unit name"
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"description": "Filter by unit type ID"
+								},
+								{
+									"key": "min_price",
+									"value": "100",
+									"description": "Minimum price filter"
+								},
+								{
+									"key": "max_price",
+									"value": "500",
+									"description": "Maximum price filter"
+								},
+								{
+									"key": "amenities",
+									"value": "1,2",
+									"description": "Filter by amenities (comma-separated IDs)"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number for pagination"
+								},
+								{
+									"key": "per_page",
+									"value": "15",
+									"description": "Items per page"
+								}
+							]
+						},
+						"description": "Get all units with filtering and pagination options"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Unit Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/units/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "units", "1"]
+						},
+						"description": "Get detailed information about a specific unit"
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate Unit Pricing",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"check_in_date\": \"2025-09-20\",\n    \"check_out_date\": \"2025-09-22\",\n    \"number_of_guests\": 2\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/units/1/calculate-pricing",
+							"host": ["{{base_url}}"],
+							"path": ["api", "units", "1", "calculate-pricing"]
+						},
+						"description": "Calculate detailed pricing breakdown for a unit reservation (2 nights for 2025-09-20 to 2025-09-22)"
+					},
+					"response": []
+				},
+				{
+					"name": "Check Unit Availability",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/units/1/availability?check_in_date=2025-09-20&check_out_date=2025-09-22",
+							"host": ["{{base_url}}"],
+							"path": ["api", "units", "1", "availability"],
+							"query": [
+								{
+									"key": "check_in_date",
+									"value": "2025-09-20",
+									"description": "Check-in date (YYYY-MM-DD)"
+								},
+								{
+									"key": "check_out_date",
+									"value": "2025-09-22",
+									"description": "Check-out date (YYYY-MM-DD)"
+								}
+							]
+						},
+						"description": "Check unit availability for specific dates"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Unit Reserved Days",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/units/1/reserved-days?start_date=2025-09-01&end_date=2025-09-30",
+							"host": ["{{base_url}}"],
+							"path": ["api", "units", "1", "reserved-days"],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2025-09-01",
+									"description": "Start date for range (optional)"
+								},
+								{
+									"key": "end_date",
+									"value": "2025-09-30",
+									"description": "End date for range (optional)"
+								}
+							]
+						},
+						"description": "Get all reserved days for a unit (public API - no authentication required)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "📅 Reservations",
+			"item": [
+				{
+					"name": "Get User Reservations",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations?status=pending&page=1&per_page=15",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations"],
+							"query": [
+								{
+									"key": "status",
+									"value": "pending",
+									"description": "Filter by status (pending, confirmed, active, completed, cancelled)"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number for pagination"
+								},
+								{
+									"key": "per_page",
+									"value": "15",
+									"description": "Items per page"
+								}
+							]
+						},
+						"description": "Get all user reservations with filtering and pagination"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Reservation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"unit_id\": 1,\n    \"check_in_date\": \"2025-09-20\",\n    \"check_out_date\": \"2025-09-22\",\n    \"number_of_guests\": 2,\n    \"guest_name\": \"John Doe\",\n    \"guest_phone\": \"+1234567890\",\n    \"guest_email\": \"john@example.com\",\n    \"special_requests\": \"Optional special requests\",\n    \"transfer_amount\": 500.00,\n    \"transfer_image\": \"base64_encoded_image_or_file\",\n    \"transfer_date\": \"2025-09-10\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations"]
+						},
+						"description": "Create a new reservation with transfer fields (number_of_guests is optional)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reservation Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1"]
+						},
+						"description": "Get detailed information about a specific reservation"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Reservation",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"check_in_date\": \"2025-09-20\",\n    \"check_out_date\": \"2025-09-22\",\n    \"number_of_guests\": 3,\n    \"guest_name\": \"John Doe Updated\",\n    \"guest_phone\": \"+1234567890\",\n    \"guest_email\": \"john@example.com\",\n    \"special_requests\": \"Updated special requests\",\n    \"transfer_amount\": 600.00,\n    \"transfer_image\": \"base64_encoded_image_or_file\",\n    \"transfer_date\": \"2025-09-12\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1"]
+						},
+						"description": "Update a reservation (only pending reservations can be updated)"
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Reservation",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reason\": \"Optional cancellation reason\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/cancel",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "cancel"]
+						},
+						"description": "Cancel a reservation"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Transfer Image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transfer_image\": \"base64_encoded_image_or_file\",\n    \"transfer_amount\": 500.00,\n    \"transfer_date\": \"2025-09-10\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/upload-transfer",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "upload-transfer"]
+						},
+						"description": "Upload transfer receipt image for a reservation"
+					},
+					"response": []
+				},
+				{
+					"name": "Calculate Bulk Pricing",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"unit_id\": 1,\n    \"date_ranges\": [\n        {\n            \"check_in_date\": \"2025-09-20\",\n            \"check_out_date\": \"2025-09-22\"\n        },\n        {\n            \"check_in_date\": \"2025-09-25\",\n            \"check_out_date\": \"2025-09-28\"\n        }\n    ],\n    \"include_fees\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/bulk-pricing",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "bulk-pricing"]
+						},
+						"description": "Calculate pricing for multiple date ranges (2 nights for 2025-09-20 to 2025-09-22)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cancellation Policies",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/cancellation-policies",
+							"host": ["{{base_url}}"],
+							"path": ["api", "cancellation-policies"]
+						},
+						"description": "Get all available cancellation policies"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "👨‍💼 Admin APIs",
+			"item": [
+				{
+					"name": "Update Reservation Status",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"confirmed\",\n    \"admin_notes\": \"Optional admin notes\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/status",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "status"]
+						},
+						"description": "Update reservation status (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Admin Notes",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"admin_notes\": \"Admin notes content\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/admin-notes",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "admin-notes"]
+						},
+						"description": "Update admin notes for a reservation (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Deposit",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"verified\": true,\n    \"admin_notes\": \"Optional verification notes\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/verify-deposit",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "verify-deposit"]
+						},
+						"description": "Verify deposit for a reservation (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Transfer Details",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transfer_amount\": 500.00,\n    \"transfer_date\": \"2025-09-10\",\n    \"transfer_image\": \"base64_encoded_image_or_file\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/reservations/1/transfer-details",
+							"host": ["{{base_url}}"],
+							"path": ["api", "reservations", "1", "transfer-details"]
+						},
+						"description": "Update transfer details for a reservation (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Bulk Cancel Reservations",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reservation_ids\": [1, 2, 3],\n    \"reason\": \"Optional bulk cancellation reason\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/bulk/cancel-reservations",
+							"host": ["{{base_url}}"],
+							"path": ["api", "bulk", "cancel-reservations"]
+						},
+						"description": "Bulk cancel multiple reservations (Admin only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "📊 Analytics",
+			"item": [
+				{
+					"name": "Get Dashboard Analytics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/dashboard",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "dashboard"]
+						},
+						"description": "Get dashboard analytics (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Revenue Analytics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/revenue?start_date=2025-09-01&end_date=2025-09-30&group_by=month",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "revenue"],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2025-09-01",
+									"description": "Start date for range"
+								},
+								{
+									"key": "end_date",
+									"value": "2025-09-30",
+									"description": "End date for range"
+								},
+								{
+									"key": "group_by",
+									"value": "month",
+									"description": "Group by day, week, month"
+								}
+							]
+						},
+						"description": "Get revenue analytics (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Reservation Analytics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/reservations?start_date=2025-09-01&end_date=2025-09-30",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "reservations"],
+							"query": [
+								{
+									"key": "start_date",
+									"value": "2025-09-01",
+									"description": "Start date for range"
+								},
+								{
+									"key": "end_date",
+									"value": "2025-09-30",
+									"description": "End date for range"
+								}
+							]
+						},
+						"description": "Get reservation analytics (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Unit Analytics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/units",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "units"]
+						},
+						"description": "Get unit analytics (Admin only)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Recent Activities",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{auth_token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/analytics/recent-activities?limit=20",
+							"host": ["{{base_url}}"],
+							"path": ["api", "analytics", "recent-activities"],
+							"query": [
+								{
+									"key": "limit",
+									"value": "20",
+									"description": "Number of activities to return"
+								}
+							]
+						},
+						"description": "Get recent activities (Admin only)"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🎯 Sliders",
+			"item": [
+				{
+					"name": "Get All Sliders",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/sliders",
+							"host": ["{{base_url}}"],
+							"path": ["api", "sliders"]
+						},
+						"description": "Get all active sliders"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "⚙️ Settings",
+			"item": [
+				{
+					"name": "Get Settings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/settings",
+							"host": ["{{base_url}}"],
+							"path": ["api", "settings"]
+						},
+						"description": "Get system settings"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "🔍 Search",
+			"item": [
+				{
+					"name": "Search Units",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/search/units?q=luxury&type=1&min_price=100&max_price=500&amenities=1,2&check_in_date=2025-09-20&check_out_date=2025-09-22&guests=2&page=1&per_page=15",
+							"host": ["{{base_url}}"],
+							"path": ["api", "search", "units"],
+							"query": [
+								{
+									"key": "q",
+									"value": "luxury",
+									"description": "Search query (required)"
+								},
+								{
+									"key": "type",
+									"value": "1",
+									"description": "Filter by unit type"
+								},
+								{
+									"key": "min_price",
+									"value": "100",
+									"description": "Minimum price filter"
+								},
+								{
+									"key": "max_price",
+									"value": "500",
+									"description": "Maximum price filter"
+								},
+								{
+									"key": "amenities",
+									"value": "1,2",
+									"description": "Filter by amenities (comma-separated)"
+								},
+								{
+									"key": "check_in_date",
+									"value": "2025-09-20",
+									"description": "Check-in date for availability"
+								},
+								{
+									"key": "check_out_date",
+									"value": "2025-09-22",
+									"description": "Check-out date for availability"
+								},
+								{
+									"key": "guests",
+									"value": "2",
+									"description": "Number of guests"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Page number for pagination"
+								},
+								{
+									"key": "per_page",
+									"value": "15",
+									"description": "Items per page"
+								}
+							]
+						},
+						"description": "Search units with advanced filtering and availability check"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "auth_token",
+			"value": "your-auth-token-here",
+			"type": "string"
+		}
+	]
+} 

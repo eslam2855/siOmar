@@ -1,0 +1,36 @@
+/* RTL Support - Safe Only */
+
+/* Only change direction, nothing else */
+.rtl {
+    direction: rtl;
+}
+
+/* Only change text alignment for inputs */
+.rtl input,
+.rtl textarea,
+.rtl select {
+    text-align: right;
+}
+
+/* Keep numbers left-aligned */
+.rtl input[type="number"] {
+    text-align: left;
+}
+
+/* Only change list padding */
+.rtl ul,
+.rtl ol {
+    padding-right: 1.5rem;
+    padding-left: 0;
+}
+
+/* Only change table direction */
+.rtl table {
+    direction: rtl;
+}
+
+/* Only change table text alignment */
+.rtl th,
+.rtl td {
+    text-align: right;
+}
